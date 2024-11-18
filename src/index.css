@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 @layer base {
-    @font-face {
-        font-family: 'Epilogue';
-        src: url('@/assets/fonts/Epilogue-Variable.woff2') format('woff2'),
-            url('@/assets/fonts/Epilogue-Variable.woff') format('woff'),
-            url('@/assets/fonts/Epilogue-Variable.ttf') format('truetype');
-        font-weight: 100 900;
-        font-display: swap;
-        font-style: normal;
-    }
-    body {
-        @apply font-epilogue min-h-svh sm:min-h-screen leading-relaxed;
-    }
+  @font-face {
+    font-family: 'Epilogue';
+    src: url('@/assets/fonts/Epilogue-Variable.woff2') format('woff2'),
+      url('@/assets/fonts/Epilogue-Variable.woff') format('woff'),
+      url('@/assets/fonts/Epilogue-Variable.ttf') format('truetype');
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+  }
+  body {
+    @apply font-epilogue min-h-svh sm:min-h-screen leading-relaxed;
+  }
 }
