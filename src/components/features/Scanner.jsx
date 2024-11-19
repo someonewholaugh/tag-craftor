@@ -37,20 +37,24 @@ const Scanner = () => {
         <CardBody className={!decodedText || !decryptedText ? 'hidden' : 'block'}>
           <div className="flex flex-col items-center space-y-4">
             {decodedText !== decryptedText && (
-              <div className="flex flex-col items-center w-full space-y-2.5 p-4 bg-foreground-50 rounded-md">
+              <div className="flex flex-col items-center w-full space-y-2.5 p-4 bg-foreground-50 rounded-md overflow-clip">
                 <span className="text-sm text-gray-500">Decoded:</span>
-                <code >{decodedText}</code>
+                <code className="text-xs text-center max-w-[18rem] sm:max-w-lg lg:max-w-xl text-wrap">
+                  {decodedText}
+                </code>
               </div>
             )}
             {decryptedText && (
               <div className="flex flex-col items-center w-full space-y-2.5 p-4 bg-foreground-50 rounded-md">
                 <span className="text-sm text-gray-500">Decrypted:</span>
                 {isLink ? (
-                  <Link href={decryptedText} target="_blank" rel="noopener noreferrer">
+                  <Link href={decryptedText} size='sm' target="_blank" rel="noopener noreferrer">
                     {decryptedText}
                   </Link>
                 ) : (
-                  <span >{decryptedText}</span>
+                  <span className="text-xs text-center max-w-[18rem] sm:max-w-lg lg:max-w-xl text-wrap">
+                    {decryptedText}
+                  </span>
                 )}
               </div>
             )}
