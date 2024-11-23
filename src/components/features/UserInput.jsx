@@ -14,7 +14,7 @@ const UserInput = ({ codeType }) => {
     useCodeGenerator(encrypt);
 
   const handleGenerate = () => generateCode(value);
-  
+
   return (
     <div className="w-full space-y-4">
       <div className="flex w-full space-x-2">
@@ -30,7 +30,12 @@ const UserInput = ({ codeType }) => {
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
         />
-        <FileUploader onUpload={generateCode} isLoading={loading} />
+        <FileUploader
+          onUpload={generateCode}
+          isLoading={loading}
+          encrypt={encrypt}
+          setEncrypt={setEncrypt}
+        />
       </div>
 
       <div className="flex space-x-8">
