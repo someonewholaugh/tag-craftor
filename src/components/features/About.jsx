@@ -23,10 +23,14 @@ const About = () => {
           <ModalHeader>
             <h3 className="text-lg font-semibold">About</h3>
           </ModalHeader>
-          <ModalBody className="space-y-2 font-light">
-            <p className="text-sm">
-              This project is a Barcode and QR Code generator created for the midterm exam by Rafif
-              Athallah.
+          <ModalBody className="font-normal">
+            <p className="space-y-2 text-sm text-justify text-foreground/80">
+              Tag Craftor is a tool that generates barcodes and QR codes from text or images. It
+              also encrypts data using AES encryption to keep it secure.
+            </p>
+            <p className="text-sm text-justify text-foreground/80">
+              It also has a scanner that can read both barcodes and QR codes, including encrypted
+              ones, for quick access to your data.
             </p>
           </ModalBody>
           <ModalFooter>
@@ -34,12 +38,12 @@ const About = () => {
               href="https://github.com/zangetsuuuu/tag-craftor"
               as={Link}
               target="_blank"
-              variant="flat"
+              color="primary"
               radius="sm"
               fullWidth
               startContent={<Icon name="Github" size="16" />}
             >
-              Github
+              View on GitHub
             </Button>
           </ModalFooter>
         </ModalContent>
