@@ -12,10 +12,17 @@ export const useCodeGenerator = (encrypt) => {
   const shortenUrl = useCallback(
     async (url) => {
       try {
-        const response = await axios.get(`https://tinyurl.com/api-create.php?url=${url}`);
-        return encrypt ? encryptValue(response.data) : response.data;
+        const response = await axios.post('https://spoo.me/', new URLSearchParams({ url }), {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Accept: 'application/json',
+          },
+        });
+        
+        const shortUrl = response.data.short_url;
+        return encrypt ? encryptValue(shortUrl) : shortUrl;
       } catch (error) {
-        console.error('Error shortening URL', error);
+        console.error('Error shortening URL:', error.response?.data || error.message);
         return url;
       }
     },
