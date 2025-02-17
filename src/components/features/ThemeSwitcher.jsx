@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
-import { Button } from '@nextui-org/button';
+import { Button } from "@heroui/button";
 import Icon from '@/components/common/Icon';
 
 const ThemeSwitcher = () => {

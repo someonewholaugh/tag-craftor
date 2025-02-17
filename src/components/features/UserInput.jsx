@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useCodeGenerator } from '@/hooks';
-import { Input } from '@nextui-org/input';
-import { Button } from '@nextui-org/button';
-import { Checkbox } from '@nextui-org/checkbox';
+import { Input } from "@heroui/input";
+import { Button } from "@heroui/button";
+import { Checkbox } from "@heroui/checkbox";
 import FileUploader from '@/components/features/FileUploader';
 import CodeOutput from '@/components/features/CodeOutput';
 

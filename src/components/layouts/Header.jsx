@@ -1,5 +1,5 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/navbar';
-import { ButtonGroup } from '@nextui-org/button';
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
+import { ButtonGroup } from "@heroui/button";
 import ThemeSwitcher from '@/components/features/ThemeSwitcher';
 import About from '@/components/features/About';
 import Icon from '@/components/common/Icon';

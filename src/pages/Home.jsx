@@ -1,4 +1,4 @@
-import { Tabs, Tab } from '@nextui-org/tabs';
+import { Tabs, Tab } from "@heroui/tabs";
 import Layout from '@/components/layouts/Layout';
 import Icon from '@/components/common/Icon';
 import UserInput from '@/components/features/UserInput';

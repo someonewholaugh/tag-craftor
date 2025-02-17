@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Modal, ModalHeader, ModalContent, ModalBody, useDisclosure } from '@nextui-org/modal';
-import { Tooltip } from '@nextui-org/tooltip';
-import { Button } from '@nextui-org/button';
-import { Image } from '@nextui-org/image';
-import { Checkbox } from '@nextui-org/checkbox';
+import { Modal, ModalHeader, ModalContent, ModalBody, useDisclosure } from "@heroui/modal";
+import { Tooltip } from "@heroui/tooltip";
+import { Button } from "@heroui/button";
+import { Image } from "@heroui/image";
+import { Checkbox } from "@heroui/checkbox";
 import Icon from '@/components/common/Icon';
 
 const FileUploader = ({ onUpload, isLoading, encrypt, setEncrypt }) => {

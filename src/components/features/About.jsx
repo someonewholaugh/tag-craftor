@@ -5,9 +5,9 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-} from '@nextui-org/modal';
-import { Button } from '@nextui-org/button';
-import { Link } from '@nextui-org/link';
+} from "@heroui/modal";
+import { Button } from "@heroui/button";
+import { Link } from "@heroui/link";
 import Icon from '@/components/common/Icon';
 
 const About = () => {
