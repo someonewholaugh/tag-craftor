@@ -6,6 +6,7 @@
     "useDefineForClassFields": true,
     "jsx": "react-jsx",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"]
     },
@@ -14,11 +15,14 @@
     "isolatedModules": true,
     "noEmit": true,
     "strict": true,
+    "strictNullChecks": true,
+    "exactOptionalPropertyTypes": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*", "vite.config.ts"]
+  "include": ["src/**/*", "vite.config.ts"],
+  "exclude": ["node_modules"]
 }
