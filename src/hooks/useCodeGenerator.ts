@@ -1,27 +1,32 @@
-import { useState, useRef, useCallback } from 'react';
 import axios from 'axios';
-import { encryptValue } from '@/utils/';
+import { useState, useRef, useCallback } from 'react';
+import { encryptValue } from '@/utils';
+import type { UseCodeGeneratorReturn } from '@/types';
 
-export const useCodeGenerator = (encrypt) => {
-  const [codeValue, setCodeValue] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [showCode, setShowCode] = useState(false);
-  const codeRef = useRef();
-  const apiKey = import.meta.env.VITE_IMGBB_API_KEY;
+export const useCodeGenerator = (encrypt?: boolean): UseCodeGeneratorReturn => {
+  const [codeValue, setCodeValue] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showCode, setShowCode] = useState<boolean>(false);
+  const codeRef = useRef<HTMLDivElement | null>(null);
+  const apiKey = import.meta.env.VITE_IMGBB_API_KEY as string;
 
   const shortenUrl = useCallback(
-    async (url) => {
+    async (url: string): Promise<string> => {
       try {
-        const response = await axios.post('https://spoo.me/', new URLSearchParams({ url }), {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Accept: 'application/json',
-          },
-        });
-        
+        const response = await axios.post<{ short_url: string }>(
+          'https://spoo.me/',
+          new URLSearchParams({ url }),
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              Accept: 'application/json',
+            },
+          }
+        );
+
         const shortUrl = response.data.short_url;
         return encrypt ? encryptValue(shortUrl) : shortUrl;
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error shortening URL:', error.response?.data || error.message);
         return url;
       }
@@ -30,7 +35,7 @@ export const useCodeGenerator = (encrypt) => {
   );
 
   const generateCode = useCallback(
-    async (value) => {
+    async (value: string | File, onComplete?: (finalValue: string) => void): Promise<void> => {
       setLoading(true);
       setShowCode(true);
 
@@ -39,48 +44,48 @@ export const useCodeGenerator = (encrypt) => {
         formData.append('image', value);
 
         try {
-          const response = await axios.post(
+          const response = await axios.post<{ data: { url: string } }>(
             `https://api.imgbb.com/1/upload?key=${apiKey}`,
             formData
           );
           const imageUrl = response.data.data.url;
           const shortUrl = await shortenUrl(imageUrl);
           setCodeValue(shortUrl);
+          onComplete?.(shortUrl);
         } catch (error) {
           console.error('Failed to upload image', error);
-          setCodeValue(''); // Set to empty if image upload fails
+          setCodeValue('');
         } finally {
           setLoading(false);
         }
         return;
       }
 
-      setLoading(true);
-      setShowCode(true);
-
       setTimeout(() => {
         setLoading(false);
         const processedValue = encrypt ? encryptValue(value) : value;
         setCodeValue(processedValue);
+        onComplete?.(processedValue);
       }, 1000);
     },
     [apiKey, encrypt, shortenUrl]
   );
 
   const downloadCode = useCallback(() => {
-    const qrSvg = codeRef.current?.querySelector('svg');
-    const barcodeCanvas = codeRef.current?.querySelector('canvas');
+    if (!codeRef.current) return;
 
-    const downloadImage = (url, filename) => {
+    const qrSvg = codeRef.current.querySelector('svg');
+    const barcodeCanvas = codeRef.current.querySelector('canvas');
+
+    const downloadImage = (url: string, filename: string) => {
       const link = document.createElement('a');
       link.href = url;
       link.download = filename;
       link.click();
     };
 
-    const generateFilename = () => `${Math.random().toString(36).substring(2, 15)}.png`;
+    const generateFilename = (): string => `${Math.random().toString(36).substring(2, 15)}.png`;
 
-    // Handle downloading QR code as PNG
     if (qrSvg) {
       const svgData = new XMLSerializer().serializeToString(qrSvg);
       const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
@@ -92,11 +97,14 @@ export const useCodeGenerator = (encrypt) => {
         canvas.width = qrSvg.clientWidth;
         canvas.height = qrSvg.clientHeight;
         const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-        URL.revokeObjectURL(url);
 
-        const pngUrl = canvas.toDataURL('image/png');
-        downloadImage(pngUrl, generateFilename());
+        if (ctx) {
+          ctx.drawImage(img, 0, 0);
+          const pngUrl = canvas.toDataURL('image/png');
+          downloadImage(pngUrl, generateFilename());
+        }
+
+        URL.revokeObjectURL(url);
       };
       img.src = url;
     } else if (barcodeCanvas) {

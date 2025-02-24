@@ -1,6 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+  --font-epilogue: 'Epilogue', sans-serif;
+}
 
 @layer base {
   @font-face {
@@ -12,7 +16,22 @@
     font-display: swap;
     font-style: normal;
   }
+
+  *:focus-visible {
+    @apply outline outline-offset-2 outline-black;
+  }
+
   body {
-    @apply font-epilogue min-h-svh sm:min-h-screen leading-relaxed;
+    @apply font-epilogue antialiased text-black dark:text-white bg-zinc-100 dark:bg-zinc-900 min-h-svh sm:min-h-screen;
+  }
+}
+
+@layer utilities {
+  ::selection {
+    @apply bg-black text-white;
+  }
+
+  [data-theme='dark'] ::selection {
+    @apply bg-white text-black;
   }
 }
