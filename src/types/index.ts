@@ -16,6 +16,7 @@ export interface HeaderProps extends ChildrenProps {
 }
 
 export interface ModalProps extends ChildrenProps {
+  title?: string;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -27,6 +28,7 @@ export interface IconProps {
   size?: number;
   className?: string;
   noHover?: boolean;
+  onClick?: () => void;
 }
 
 export interface FileUploaderProps {
@@ -57,7 +59,7 @@ export interface UseCodeGeneratorReturn {
   codeValue: string;
   loading: boolean;
   showCode: boolean;
-  generateCode: (value: string | File) => Promise<void>;
+  generateCode: (value: string | File, onComplete: (finalValue: string) => void) => Promise<void>;
   downloadCode: () => void;
   codeRef: MutableRefObject<HTMLDivElement | null>;
 }
@@ -65,6 +67,8 @@ export interface UseCodeGeneratorReturn {
 export interface HistoryItem {
   id: string;
   value: string;
+  decryptedValue: string;
   codeType: string;
   timestamp: number;
+  isEncrypted: boolean;
 }
